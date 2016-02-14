@@ -1,6 +1,6 @@
 {% import 'macros/form.html' as form %}
 
-{%- set values = data.get(field.field_name, [])
+{%- set values = h.repeating_get_values(field.field_name, data)
     + [''] * field.get('form_blanks', 3) -%}
 {%- for element in values -%}
   {{ form.input(
