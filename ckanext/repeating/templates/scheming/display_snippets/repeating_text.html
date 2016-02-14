@@ -1,6 +1,8 @@
 {%- set values = data[field.field_name] -%}
 <ol>
-{%- for element in values -%}
+  {%- for element in values -%}
+  {% if element|length > 0 %}
   <li>{{ element }}</li>
-{%- endfor -%}
+  {% endif %}
+  {%- endfor -%}
 </ol>
