@@ -22,7 +22,11 @@ def repeating_get_values(field_name, form_blanks, data):
         return values
         
     value = data.get(field_name)
-    value = value + [''] * form_blanks if value else mk_value()
+    if value:
+        value = value if isinstance(value, list) else [value]
+        value = value + [''] * form_blanks if value else mk_value()
+    else:
+        value = mk_value()
     return value
 
 class RepeatingPlugin(p.SingletonPlugin):
