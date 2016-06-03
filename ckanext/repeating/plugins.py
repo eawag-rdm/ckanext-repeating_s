@@ -20,7 +20,7 @@ def repeating_get_values(field_name, form_blanks, data):
         # not coming from form submit -> get value from DB
         value = data.get(field_name)
         value = value if isinstance(value, list) else [value]
-        value = value + [''] * max(form_blanks -len(value), 0)
+        value = value + [''] * max(form_blanks -len(value), 1)
     else:
         # using form data
         fields = sorted([r.string for r in fields if r])
