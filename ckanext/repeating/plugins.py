@@ -14,20 +14,20 @@ def repeating_get_values(field_name, form_blanks, data):
     In the first case, show additional <form_blanks> empty fields. In the
     latter, don't change the form.
     '''
-    def mk_value():
-        fields = [re.match(field_name + "-\d+", key) for key in data.keys()]
-        fields = sorted([r.string for r in fields if r])
-        values = [data[f] for f in fields if data[f]]
-        values = values + [''] * max(form_blanks - len(values), 0)
-        return values
-        
-    value = data.get(field_name)
-    if value:
+
+    fields = [re.match(field_name + "-\d+", key) for key in data.keys()]
+    if all(f is None for f in fields):
+        # not coming from form submit -> get value from DB
+        value = data.get(field_name)
         value = value if isinstance(value, list) else [value]
-        value = value + [''] * form_blanks if value else mk_value()
+        value = value + [''] * max(form_blanks -len(value), 0)
     else:
-        value = mk_value()
+        # using form data
+        fields = sorted([r.string for r in fields if r])
+        value = [data[f] for f in fields if data[f]]
+        value = value + [''] * max(form_blanks - len(value), 0)
     return value
+
 
 class RepeatingPlugin(p.SingletonPlugin):
     p.implements(p.IValidators)
