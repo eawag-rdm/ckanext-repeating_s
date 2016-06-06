@@ -1,8 +1,12 @@
 {%- set values = data[field.field_name] -%}
-<ol>
-  {%- for element in values -%}
-  {% if element|length > 0 %}
-  <li>{{ element }}</li>
-  {% endif %}
-  {%- endfor -%}
-</ol>
+{% if values|length == 1 %}
+  {{ values[0] }}
+{% else %}
+  <ol>
+    {%- for element in values -%}
+      {% if element|length > 0 %}
+	<li>{{ element }}</li>
+      {% endif %}
+    {%- endfor -%}
+  </ol>
+{% endif %}
