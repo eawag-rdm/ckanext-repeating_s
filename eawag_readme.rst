@@ -1,5 +1,10 @@
 procedure for deploying/installing ckan and ckanexts
 
+
+
+###SPECIFIC TO THIS EXTENSION:
+at least  the validators.py resource is required - even though this extension is otherwose deprecated
+
 ## DEFINITIONS
 # REPONAME = the name of the repository to clone from github
 # DEPLOY_TARGET = the name of the server (ckan instance) to deploy to
