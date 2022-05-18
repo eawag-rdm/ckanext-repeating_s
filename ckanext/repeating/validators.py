@@ -42,13 +42,13 @@ def repeating_text(key, data, errors, context):
                 errors[key].append(_('invalid type for repeating text: %r')
                     % element)
                 continue
-            if isinstance(element, str):
-                try:
-                    element = element.decode('utf-8')
-                except UnicodeDecodeError:
-                    errors[key]. append(_('invalid encoding for "%s" value')
-                        % lang)
-                    continue
+#            if isinstance(element, str):
+#                try:
+#                    element = element.decode('utf-8')
+#                except UnicodeDecodeError:
+#                    errors[key]. append(_('invalid encoding for "%s" value')
+#                        % lang)
+#                    continue
             out.append(element)
 
         if not errors[key]:
