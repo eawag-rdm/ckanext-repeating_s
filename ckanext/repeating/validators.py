@@ -30,7 +30,7 @@ def repeating_text(key, data, errors, context):
     value = data[key]
     # 1. list of strings or 2. single string
     if value is not missing:
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             value = [value]
         if not isinstance(value, list):
             errors[key].append(_('expecting list of strings'))
@@ -38,7 +38,7 @@ def repeating_text(key, data, errors, context):
 
         out = []
         for element in value:
-            if not isinstance(element, basestring):
+            if not isinstance(element, str):
                 errors[key].append(_('invalid type for repeating text: %r')
                     % element)
                 continue
@@ -60,7 +60,7 @@ def repeating_text(key, data, errors, context):
     prefix = key[-1] + '-'
     extras = data.get(key[:-1] + ('__extras',), {})
 
-    for name, text in extras.iteritems():
+    for name, text in list(extras.items()):
         if not name.startswith(prefix):
             continue
         if not text:
