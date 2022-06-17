@@ -42,13 +42,13 @@ def repeating_text(key, data, errors, context):
                 errors[key].append(_('invalid type for repeating text: %r')
                     % element)
                 continue
-#            if isinstance(element, str):
-#                try:
-#                    element = element.decode('utf-8')
-#                except UnicodeDecodeError:
-#                    errors[key]. append(_('invalid encoding for "%s" value')
-#                        % lang)
-#                    continue
+            if isinstance(element, str):
+                try:
+                    element = element.decode('utf-8')
+                except UnicodeDecodeError:
+                    errors[key]. append(_('invalid encoding for "%s" value')
+                        % lang)
+                    continue
             out.append(element)
 
         if not errors[key]:
@@ -60,7 +60,7 @@ def repeating_text(key, data, errors, context):
     prefix = key[-1] + '-'
     extras = data.get(key[:-1] + ('__extras',), {})
 
-    for name, text in extras.items():
+    for name, text in list(extras.items()):
         if not name.startswith(prefix):
             continue
         if not text:
